@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { getAllMountains, MountainType } from './mountains';
 
+interface AppContextInterface {
+  mountainData: MountainType;
+}
+const initialContext = { mountainData: getAllMountains() };
+
+export const useAppContext = () => useContext(Context);
+
+export const Context = createContext<AppContextInterface>(initialContext);
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Context.Provider value={initialContext}>
+      <App />
+    </Context.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
