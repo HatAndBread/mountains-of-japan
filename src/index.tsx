@@ -5,14 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { getAllMountains, MountainType } from './mountains';
 
-interface AppContextInterface {
-  mountainData: MountainType;
-}
-const initialContext = { mountainData: getAllMountains() };
+// interface AppContextInterface {
+//   mountainData: MountainType;
+// }
+const initialContext = {
+  mountainData: getAllMountains(),
+  mapBoxKey: process.env.REACT_APP_MAPBOX_KEY,
+};
 
 export const useAppContext = () => useContext(Context);
 
-export const Context = createContext<AppContextInterface>(initialContext);
+export const Context = createContext(initialContext);
 ReactDOM.render(
   <React.StrictMode>
     <Context.Provider value={initialContext}>

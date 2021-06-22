@@ -1,0 +1,17 @@
+.marker {
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: fixed;
+  margin: 0;
+}
+.marker img {
+  width: 30px;
+}
+
+#map {
+  position: relative;
+  height: 60vh;
+  width: 100vw;
+}
