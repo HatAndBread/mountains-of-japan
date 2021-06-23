@@ -1,8 +1,19 @@
+// To parse this data:
+//
+//   import { Convert } from "./file";
+//
+//   const mountainDataInterface = Convert.toMountainDataInterface(json);
+//
+// These functions will throw an error if the JSON doesn't
+// match the expected interface, even if the JSON is valid.
+
 export interface Mountain {
   names: Names;
   prefectures: Prefectures;
   elevation: number;
   coords: Coords;
+  description: string;
+  imageUrl: string;
 }
 
 export interface Coords {
@@ -24,13 +35,19 @@ export interface Prefectures {
   prefecturesEnglish: string[];
 }
 
+// Converts JSON strings to/from your types
+// and asserts the results of JSON.parse at runtime
 export class Convert {
-  public static toMountain(json: string): Mountain[] {
-    return cast(JSON.parse(json), a(r('Mountain')));
+  public static toMountainDataInterface(json: string): Mountain[] {
+    return cast(JSON.parse(json), a(r('MountainDataInterface')));
   }
 
-  public static mountainToJson(value: Mountain[]): string {
-    return JSON.stringify(uncast(value, a(r('Mountain'))), null, 2);
+  public static mountainDataInterfaceToJson(value: Mountain[]): string {
+    return JSON.stringify(
+      uncast(value, a(r('MountainDataInterface'))),
+      null,
+      2
+    );
   }
 }
 
@@ -182,12 +199,14 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-  Mountain: o(
+  MountainDataInterface: o(
     [
       { json: 'names', js: 'names', typ: r('Names') },
       { json: 'prefectures', js: 'prefectures', typ: r('Prefectures') },
       { json: 'elevation', js: 'elevation', typ: 0 },
       { json: 'coords', js: 'coords', typ: r('Coords') },
+      { json: 'description', js: 'description', typ: '' },
+      { json: 'imageUrl', js: 'imageUrl', typ: '' },
     ],
     false
   ),

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppContext } from '../../index';
-
 import './Map3D.css';
 import { Mountain } from '../../MountainDataInterface';
-import mapboxgl, { LngLatLike } from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl';
+import MapControls3D from './MapControls3D';
+import hikerMarker from '../../Assets/hiker.svg';
 
 let rotating = false;
 let rotatingPitch = false;
-let changingAltitude = false;
 const rotate = (theMap: mapboxgl.Map, direction: 1 | -1) => {
   theMap.setBearing(theMap.getBearing() + direction);
   rotating && window.requestAnimationFrame(() => rotate(theMap, direction));
@@ -19,17 +19,25 @@ const rotatePitch = (theMap: mapboxgl.Map, direction: 1 | -1) => {
     window.requestAnimationFrame(() => rotatePitch(theMap, direction));
 };
 
-const Map3D = ({ myMountain }: { myMountain: Mountain }) => {
+const Map3D = ({
+  myMountain,
+  fullWidth,
+}: {
+  myMountain: Mountain;
+  fullWidth?: boolean;
+}) => {
   const mapContainer = useRef<HTMLDivElement>(null);
+  const markerRef = useRef<HTMLDivElement>(null);
   const key = useAppContext().mapBoxKey;
   const [theMap, setTheMap] = useState<null | mapboxgl.Map>();
+  const [marker, setMarker] = useState<null | mapboxgl.Marker>();
 
   useEffect(() => {
     if (!theMap && key && mapContainer.current) {
       mapboxgl.accessToken = key;
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        zoom: 11.53,
+        zoom: 12,
         center: [myMountain.coords.longitude, myMountain.coords.latitude],
         pitch: 76,
         bearing: 0,
@@ -60,76 +68,35 @@ const Map3D = ({ myMountain }: { myMountain: Mountain }) => {
       setTheMap(map);
     }
 
-    return () => {};
+    return () => {
+      rotatingPitch = false;
+      rotating = false;
+    };
   }, [theMap, key, mapContainer, myMountain]);
+
+  useEffect(() => {
+    if (markerRef.current && theMap) {
+      markerRef.current.style.width = `${42}px`;
+      markerRef.current.style.height = `${42}px`;
+      setMarker(
+        new mapboxgl.Marker(markerRef.current)
+          .setLngLat([myMountain.coords.longitude, myMountain.coords.latitude])
+          .addTo(theMap)
+      );
+      markerRef.current.style.backgroundImage = `url('${hikerMarker}')`;
+    }
+  }, [markerRef, myMountain, theMap]);
 
   return (
     <div className='Map3D'>
-      <button
-        onClick={() => {
-          if (theMap) {
-            theMap.setPitch(76);
-            theMap.setBearing(0);
-            theMap.setZoom(11.53);
-            theMap.flyTo({
-              center: [myMountain.coords.longitude, myMountain.coords.latitude],
-              essential: true,
-            });
-          }
-        }}>
-        Reset
-      </button>
-      <button
-        onMouseDown={() => {
-          if (theMap) {
-            rotating = true;
-            rotate(theMap, 1);
-          }
-        }}
-        onMouseUp={() => {
-          rotating = false;
-        }}>
-        Rotate West👈
-      </button>
-      <button
-        onMouseDown={() => {
-          if (theMap) {
-            rotating = true;
-            rotate(theMap, -1);
-          }
-        }}
-        onMouseUp={() => {
-          if (theMap) {
-            rotating = false;
-          }
-        }}>
-        Rotate East👉
-      </button>
-      <button
-        onMouseDown={() => {
-          if (theMap) {
-            rotatingPitch = true;
-            rotatePitch(theMap, -1);
-          }
-        }}
-        onMouseUp={() => {
-          rotatingPitch = false;
-        }}>
-        Rotate Up
-      </button>
-      <button
-        onMouseDown={() => {
-          if (theMap) {
-            rotatingPitch = true;
-            rotatePitch(theMap, 1);
-          }
-        }}
-        onMouseUp={() => {
-          rotatingPitch = false;
-        }}>
-        Rotate Down
-      </button>
-      <div className='map-container' ref={mapContainer} id='map-3d'></div>
+      <div
+        className='map-container'
+        ref={mapContainer}
+        id='map-3d'
+        style={fullWidth ? { width: '95vw' } : {}}>
+        {theMap && <MapControls3D theMap={theMap} myMountain={myMountain} />}
+      </div>
+      <div className='marker' ref={markerRef}></div>
     </div>
   );
 };

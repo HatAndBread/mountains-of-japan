@@ -5,12 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { getAllMountains, MountainType } from './mountains';
 
-// interface AppContextInterface {
-//   mountainData: MountainType;
-// }
 const initialContext = {
   mountainData: getAllMountains(),
   mapBoxKey: process.env.REACT_APP_MAPBOX_KEY,
+  flickrKey: process.env.REACT_APP_FLICKR_KEY,
 };
 
 export const useAppContext = () => useContext(Context);

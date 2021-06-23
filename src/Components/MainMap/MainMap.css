@@ -9,6 +9,19 @@
 .marker img {
   width: 30px;
 }
+.label-title {
+  font-weight: 900;
+}
+.mountain-label {
+  opacity: 0;
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  transition: 0.3s;
+  background-color: antiquewhite;
+  padding: 8px;
+  border-radius: 8px;
+}
 
 #map {
   position: relative;
