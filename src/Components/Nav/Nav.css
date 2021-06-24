@@ -1,3 +1,12 @@
 .Nav {
   display: flex;
+  padding: 16px;
+  background-color: #ff5a58;
+  color: snow;
+  font-weight: 500;
+  font-size: large;
+}
+
+.Nav a {
+  color: snow;
 }

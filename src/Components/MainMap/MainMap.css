@@ -22,9 +22,38 @@
   padding: 8px;
   border-radius: 8px;
 }
-
+.MainMap {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}
+.map-hint {
+  display: none;
+  position: relative;
+  top: 16px;
+  background-color: #ff5a58;
+  color: white;
+  width: 200px;
+  z-index: 1000;
+  left: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: gray 1px 1px 3px 3px;
+  font-size: x-large;
+  text-align: center;
+  pointer-events: none;
+  transition: 20s;
+  transition-timing-function: ease-out;
+}
 #map {
   position: relative;
   height: 60vh;
-  width: 100vw;
+  width: 60%;
+  border-radius: 16px;
+}
+
+@media only screen and (max-width: 800px) {
+  #map {
+    width: 90%;
+  }
 }

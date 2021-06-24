@@ -2,8 +2,8 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <header>
-      <h1>Mountains Of Japan</h1>
+    <header className='Header'>
+      <h1>The Japan Mountain Database</h1>
     </header>
   );
 };

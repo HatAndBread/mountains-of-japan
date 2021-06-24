@@ -4,16 +4,20 @@ import { useAppContext } from '../../index';
 import Map3D from '../../Components/Map3D/Map3D';
 import FlickrImages from '../../Components/FlickrImages/FlickrImages';
 import Image from '../../Components/Image/Image';
+import Weather from '../../Components/Weather/Weather';
 import './Mountain.css';
 
 const Mountain = () => {
   const ctx = useAppContext();
   const id = parseInt(useParams<{ id: string }>().id);
   const myMountain = ctx.mountainData[id];
-  const [flickrUrls, setFlickrUrls] = useState([]);
+  const [flickrUrls, setFlickrUrls] = useState<string[]>([]);
+  const [currentWeather, setCurrentWeather] = useState<any>(null);
+  const [forecast, setForecast] = useState<any>(null);
   const [noMainImage, setNoMainImage] = useState(
-    myMountain.imageUrl ? false : true
+    myMountain.imageUrl === '' ? false : true
   );
+  const randomImageNumber = Math.floor(Math.random() * flickrUrls.length);
   useEffect(() => {
     const callFlickr = async () => {
       try {
@@ -24,12 +28,14 @@ const Mountain = () => {
           })
           .then((data) => {
             if (data?.photos?.photo) {
-              const arr = data.photos.photo.map((item: any) => {
-                console.log(item);
-                if (item.ispublic) {
-                  return `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg`;
-                }
-              });
+              const arr = data.photos.photo
+                .map((item: any) => {
+                  if (item.ispublic) {
+                    return `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg`;
+                  }
+                  return null;
+                })
+                .filter((el: any) => el !== null);
               setFlickrUrls(arr);
             }
           });
@@ -37,8 +43,29 @@ const Mountain = () => {
         console.log(err);
       }
     };
+
+    const getWeather = () => {
+      fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${myMountain.coords.latitude}&lon=${myMountain.coords.longitude}&exclude=minutely,alerts&appid=${ctx.weatherKey}&units=metric`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.daily && data.current) {
+            setForecast(data.daily);
+            setCurrentWeather(data.current);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     callFlickr();
-  }, [myMountain]);
+    getWeather();
+  }, [myMountain, ctx.flickrKey, ctx.weatherKey]);
+
+  useEffect(() => {
+    console.log('Current weather:', currentWeather, 'Forecast:', forecast);
+  }, [currentWeather, forecast]);
 
   return (
     <div>
@@ -49,27 +76,51 @@ const Mountain = () => {
           <h1>
             {myMountain.names.romaji} ({myMountain.names.kanji})
           </h1>
-          <h2>{myMountain.elevation.toLocaleString()}m</h2>
-          <Map3D myMountain={myMountain} fullWidth={true} />
-          {myMountain.description && (
+          <div className='main-elevation'>
+            {myMountain.prefectures.prefecturesEnglish.map(
+              (p, index) =>
+                `${p}${
+                  index !== myMountain.prefectures.prefecturesEnglish.length - 1
+                    ? ', '
+                    : ''
+                }`
+            )}
+          </div>
+          <div className='main-elevation'>
+            {myMountain.elevation.toLocaleString()}m
+          </div>
+          {(!noMainImage || flickrUrls.length > 0) && (
             <p className='mountain-description'>
               {!noMainImage && (
                 <Image
                   src={myMountain.imageUrl}
-                  alt='🏔'
+                  alt=''
                   onLoadFail={() => {
                     setNoMainImage(true);
                   }}
                 />
               )}
+              {noMainImage && flickrUrls.length > 0 && (
+                <Image
+                  src={`${flickrUrls[randomImageNumber].substring(
+                    0,
+                    flickrUrls[randomImageNumber].length - 5
+                  )}b.jpg`}
+                  alt=''
+                />
+              )}
               {myMountain.description}
             </p>
           )}
-        </div>
-      )}
+          {forecast && currentWeather && (
+            <Weather forecast={forecast} currentWeather={currentWeather} />
+          )}
+          <Map3D myMountain={myMountain} fullWidth={true} />
 
-      {flickrUrls.length && (
-        <FlickrImages urls={flickrUrls} myMountain={myMountain} />
+          {flickrUrls.length && (
+            <FlickrImages urls={flickrUrls} myMountain={myMountain} />
+          )}
+        </div>
       )}
     </div>
   );

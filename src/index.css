@@ -1,16 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 body {
   margin: 0;
+
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffefef;
+  background: url('./Assets/asanoha-400px.png');
 }
 button {
   cursor: pointer;
+  background-color: #ff5a58;
+  color: snow;
+  padding: 8px;
+  border-radius: 8px;
+  border-style: none;
+  font-size: large;
 }
 
 .pointer {
   cursor: pointer;
+}
+
+a {
+  text-emphasis: none;
+  text-decoration: none;
+}
+
+a:visited {
+  color: initial;
 }

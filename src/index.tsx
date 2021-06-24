@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { getAllMountains, MountainType } from './mountains';
+import { getAllMountains } from './mountains';
 
 const initialContext = {
   mountainData: getAllMountains(),
   mapBoxKey: process.env.REACT_APP_MAPBOX_KEY,
   flickrKey: process.env.REACT_APP_FLICKR_KEY,
+  weatherKey: process.env.REACT_APP_WEATHER_KEY,
 };
 
 export const useAppContext = () => useContext(Context);

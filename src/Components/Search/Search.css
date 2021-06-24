@@ -1,0 +1,19 @@
+.Search {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.Search form {
+  display: flex;
+}
+
+.Search input {
+  margin-right: 8px;
+  min-width: 240px;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: gray 0px 0px 1px 1px;
+  font-size: 16px;
+}

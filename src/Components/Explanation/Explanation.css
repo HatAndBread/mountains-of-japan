@@ -1,0 +1,11 @@
+.Explanation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Explanation p {
+  max-width: 800px;
+  padding: 32px;
+}

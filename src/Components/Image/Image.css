@@ -1,3 +1,10 @@
 .Image {
   object-fit: contain;
+  max-width: 600px;
+}
+
+@media only screen and (max-width: 620px) {
+  .Image {
+    max-width: 92%;
+  }
 }

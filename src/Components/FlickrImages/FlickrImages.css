@@ -20,5 +20,5 @@
 }
 
 .flickr-images img:hover {
-  transform: rotateZ(15deg);
+  transform: rotateZ(8deg);
 }

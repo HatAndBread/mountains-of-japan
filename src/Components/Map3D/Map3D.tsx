@@ -34,10 +34,11 @@ const Map3D = ({
 
   useEffect(() => {
     if (!theMap && key && mapContainer.current) {
+      mapContainer.current.style.pointerEvents = 'none';
       mapboxgl.accessToken = key;
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        zoom: 12,
+        zoom: 14,
         center: [myMountain.coords.longitude, myMountain.coords.latitude],
         pitch: 76,
         bearing: 0,
@@ -59,10 +60,13 @@ const Map3D = ({
           type: 'sky',
           paint: {
             'sky-type': 'atmosphere',
-            'sky-atmosphere-sun': [1.0, 40.0],
-            'sky-atmosphere-sun-intensity': 15,
+            'sky-atmosphere-sun': [1.0, 70.0],
+            'sky-atmosphere-sun-intensity': 8,
           },
         });
+        if (mapContainer.current) {
+          mapContainer.current.style.pointerEvents = 'initial';
+        }
       });
 
       setTheMap(map);
@@ -89,11 +93,7 @@ const Map3D = ({
 
   return (
     <div className='Map3D'>
-      <div
-        className='map-container'
-        ref={mapContainer}
-        id='map-3d'
-        style={fullWidth ? { width: '95vw' } : {}}>
+      <div className='map-container' ref={mapContainer} id='map-3d'>
         {theMap && <MapControls3D theMap={theMap} myMountain={myMountain} />}
       </div>
       <div className='marker' ref={markerRef}></div>

@@ -1,11 +1,11 @@
 #map-3d {
   position: relative;
   height: 500px;
-  width: 600px;
+  width: 60vw;
 }
 
 @media only screen and (max-width: 1000px) {
   #map-3d {
-    width: 95vw;
+    width: 90vw;
   }
 }

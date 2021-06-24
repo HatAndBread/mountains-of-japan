@@ -1,0 +1,24 @@
+.SearchCard {
+  background-color: white;
+  padding: 8px;
+  border-radius: 8px;
+  margin: 16px;
+  max-width: 600px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: gray 1px 1px 2px 2px;
+}
+.SearchCard .mountain-name {
+  font-weight: 500;
+  font-size: large;
+}
+.SearchCard .mountain-description {
+  font-size: medium;
+}
+
+.SearchCard a {
+  color: #ff5a58;
+}

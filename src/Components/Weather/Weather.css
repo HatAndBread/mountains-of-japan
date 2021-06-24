@@ -1,0 +1,21 @@
+.Weather {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.forecast {
+  display: flex;
+  width: 90vw;
+  justify-content: space-between;
+  overflow-x: scroll;
+}
+.weather-forecast-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+  box-shadow: gray 1px 1px 1px 1px;
+  margin: 4px;
+  border-radius: 8px;
+}

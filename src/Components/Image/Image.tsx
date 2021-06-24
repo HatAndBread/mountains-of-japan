@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Image.css';
 
 const Image = ({
   src,
@@ -27,7 +28,8 @@ const Image = ({
           onClick={() => {
             onClick && onClick();
           }}
-          onError={() => {
+          onError={(e) => {
+            console.log(e);
             setHasError(true);
             onLoadFail && onLoadFail();
           }}

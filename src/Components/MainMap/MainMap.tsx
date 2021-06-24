@@ -4,21 +4,41 @@ import { useAppContext } from '../../index';
 import Marker from './Marker';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MainMap.css';
+import { LngLatLike } from 'mapbox-gl';
 
-const MainMap = () => {
+const MainMap = ({
+  mapCenter,
+  setMapCenter,
+  mapZoom,
+  setMapZoom,
+  appStarted,
+  setAppStarted,
+}: {
+  mapCenter: LngLatLike;
+  setMapCenter: React.Dispatch<React.SetStateAction<LngLatLike>>;
+  mapZoom: number;
+  setMapZoom: React.Dispatch<React.SetStateAction<number>>;
+  appStarted: boolean;
+  setAppStarted: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const mapContainer = useRef<HTMLDivElement>(null);
+  const hintRef = useRef<HTMLDivElement>(null);
   const [theMap, setTheMap] = useState<null | mapboxgl.Map>(null);
   const key = useAppContext().mapBoxKey;
   const mountains = useAppContext().mountainData;
 
   useEffect(() => {
-    if (!theMap && key && mapContainer.current) {
+    if (!theMap && key && mapContainer.current && hintRef.current) {
       mapboxgl.accessToken = key;
+      if (!appStarted) {
+        hintRef.current.style.display = 'block';
+        setAppStarted(true);
+      }
       const map = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/cjaudgl840gn32rnrepcb9b9g',
-        center: [138.72905, 35.360638],
-        zoom: 10,
+        center: mapCenter,
+        zoom: mapZoom,
       });
       map.on('load', () => {
         map.addSource('dem', {
@@ -33,10 +53,31 @@ const MainMap = () => {
           },
           'waterway-river-canal-shadow'
         );
+        if (hintRef.current) {
+          hintRef.current.style.opacity = '0';
+        }
+      });
+      map.on('move', (a) => {
+        setMapCenter(map.getCenter());
+      });
+      map.on('zoomend', () => {
+        setMapZoom(map.getZoom());
       });
       setTheMap(map);
     }
-  }, [theMap, key, mapContainer]);
+  }, [
+    theMap,
+    key,
+    mapCenter,
+    mapContainer,
+    setMapCenter,
+    mapZoom,
+    setMapZoom,
+    hintRef,
+    appStarted,
+    setAppStarted,
+  ]);
+
   return (
     <div className='MainMap'>
       {mountains &&
@@ -49,7 +90,11 @@ const MainMap = () => {
             index={index}
           />
         ))}
-      <div className='map-container' ref={mapContainer} id='map'></div>
+      <div className='map-container' ref={mapContainer} id='map'>
+        <div className='map-hint' ref={hintRef}>
+          💡Click on any mountain to learn more about it
+        </div>
+      </div>
     </div>
   );
 };
