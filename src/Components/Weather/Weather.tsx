@@ -1,6 +1,21 @@
 import React from 'react';
 import './Weather.css';
-const DAYS = ['SUN', 'MON', 'TUES', 'WED', 'THU', 'FRI', 'SAT'];
+const DAYS = [
+  'SUN',
+  'MON',
+  'TUES',
+  'WED',
+  'THU',
+  'FRI',
+  'SAT',
+  'SUN',
+  'MON',
+  'TUES',
+  'WED',
+  'THU',
+  'FRI',
+  'SAT',
+];
 const Weather = ({
   forecast,
   currentWeather,
@@ -24,11 +39,7 @@ const Weather = ({
         {forecast.map((cast: any, index: any) => {
           return (
             <div key={index} className='weather-forecast-day'>
-              <div>
-                {DAYS[index + today]
-                  ? DAYS[index + today]
-                  : DAYS[index + 1 - today]}
-              </div>
+              <div>{DAYS[index + today]}</div>
               <img
                 src={`http://openweathermap.org/img/wn/${cast.weather[0].icon}@2x.png`}
                 alt={''}></img>
