@@ -26,6 +26,7 @@
   display: flex;
   width: 100vw;
   justify-content: center;
+  margin-top: 16px;
 }
 .map-hint {
   display: none;

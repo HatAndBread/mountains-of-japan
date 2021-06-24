@@ -89,7 +89,7 @@ const Mountain = () => {
           <div className='main-elevation'>
             {myMountain.elevation.toLocaleString()}m
           </div>
-          {(!noMainImage || flickrUrls.length > 0) && (
+          {!noMainImage || flickrUrls.length > 0 ? (
             <p className='mountain-description'>
               {!noMainImage && (
                 <Image
@@ -111,6 +111,8 @@ const Mountain = () => {
               )}
               {myMountain.description}
             </p>
+          ) : (
+            <p className='mountain-description'>{myMountain.description}</p>
           )}
           {forecast && currentWeather && (
             <Weather forecast={forecast} currentWeather={currentWeather} />

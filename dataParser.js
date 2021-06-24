@@ -1,4 +1,6 @@
 const fs = require('fs');
+const descriptions = require('./descriptions.json');
+const urls = require('./image-urls.json');
 const wanakana = require('wanakana');
 const getPrefecture = require('./getPrefecture');
 
@@ -84,10 +86,12 @@ for (let i = 0; i < mountainNames.length; i++) {
     prefectures: prefectures[i],
     elevation: elevations[i],
     coords: coords[i],
+    description: descriptions[i],
+    imageUrl: urls[i],
   });
 }
 
-fs.writeFile('API.json', JSON.stringify(apiData), function (err) {
+fs.writeFile('TEST.json', JSON.stringify(apiData), function (err) {
   if (err) return console.log(err);
   console.log('Success ✨');
 });

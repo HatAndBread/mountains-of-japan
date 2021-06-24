@@ -47,5 +47,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "node-fetch": "^2.6.1"
+  }
 }

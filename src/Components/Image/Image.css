@@ -1,6 +1,7 @@
 .Image {
   object-fit: contain;
   max-width: 600px;
+  border-radius: 8px;
 }
 
 @media only screen and (max-width: 620px) {

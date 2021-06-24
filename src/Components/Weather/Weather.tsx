@@ -16,7 +16,8 @@ const Weather = ({
           <div>
             <div>NOW</div>
             <img
-              src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}></img>
+              src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+              alt=''></img>
           </div>
           <div>{Math.round(currentWeather.temp)} ℃</div>
         </div>
@@ -29,7 +30,8 @@ const Weather = ({
                   : DAYS[index + 1 - today]}
               </div>
               <img
-                src={`http://openweathermap.org/img/wn/${cast.weather[0].icon}@2x.png`}></img>
+                src={`http://openweathermap.org/img/wn/${cast.weather[0].icon}@2x.png`}
+                alt={''}></img>
               <div className='temp-high'>
                 {Math.round(cast.temp.max)}° {Math.round(cast.temp.min)}°
               </div>

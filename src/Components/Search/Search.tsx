@@ -20,8 +20,12 @@ const Search = ({
           const results = mountains.filter((mountain) => {
             if (
               mountain.description.toLowerCase().includes(s) ||
-              mountain.prefectures.prefecturesEnglish.includes(s) ||
-              mountain.prefectures.prefecturesJapanese.includes(s) ||
+              mountain.prefectures.prefecturesEnglish[0]?.includes(s) ||
+              mountain.prefectures.prefecturesEnglish[1]?.includes(s) ||
+              mountain.prefectures.prefecturesEnglish[2]?.includes(s) ||
+              mountain.prefectures.prefecturesJapanese[0]?.includes(s) ||
+              mountain.prefectures.prefecturesJapanese[1]?.includes(s) ||
+              mountain.prefectures.prefecturesJapanese[2]?.includes(s) ||
               mountain.names.romaji.toLowerCase().includes(s) ||
               mountain.names.kana.includes(s) ||
               mountain.names.kanji?.includes(s) ||
