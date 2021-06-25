@@ -17,7 +17,9 @@ const Mountain = () => {
   const [noMainImage, setNoMainImage] = useState(
     myMountain.imageUrl === '' ? false : true
   );
-  const randomImageNumber = Math.floor(Math.random() * flickrUrls.length);
+  const [randomImageNumber, setRandomImageNumber] = useState(
+    Math.floor(Math.random() * flickrUrls.length)
+  );
   useEffect(() => {
     const callFlickr = async () => {
       try {
@@ -61,11 +63,11 @@ const Mountain = () => {
     };
     callFlickr();
     getWeather();
-  }, [myMountain, ctx.flickrKey, ctx.weatherKey]);
+  }, [myMountain, ctx.flickrKey, ctx.weatherKey, setFlickrUrls]);
 
   useEffect(() => {
-    console.log('Current weather:', currentWeather, 'Forecast:', forecast);
-  }, [currentWeather, forecast]);
+    setRandomImageNumber(Math.floor(Math.random() * flickrUrls.length));
+  }, [flickrUrls, setRandomImageNumber]);
 
   return (
     <div>
