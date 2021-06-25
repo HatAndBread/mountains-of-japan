@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAppContext } from './index';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Nav from './Components/Nav/Nav';
 import Header from './Pages/Header/Header';

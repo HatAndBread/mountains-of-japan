@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppContext } from '../../index';
 import Map3D from '../../Components/Map3D/Map3D';
 import FlickrImages from '../../Components/FlickrImages/FlickrImages';

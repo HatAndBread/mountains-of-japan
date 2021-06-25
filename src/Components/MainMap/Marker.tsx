@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
 import smallMountainMarker from '../../Assets/small-mountain.svg';

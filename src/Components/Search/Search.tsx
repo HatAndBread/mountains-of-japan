@@ -35,9 +35,10 @@ const Search = ({
             ) {
               return mountain;
             }
+            return undefined;
           });
           const ordered: Mountain[] = [];
-          results.map((result) => {
+          results.forEach((result) => {
             if (
               result.names.romaji.toLowerCase().includes(s) ||
               result.names.kanji === s ||
