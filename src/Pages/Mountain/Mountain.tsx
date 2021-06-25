@@ -131,8 +131,10 @@ const Mountain = () => {
             isTouchScreen={isTouchScreen}
           />
 
-          {flickrUrls.length && (
+          {flickrUrls.length ? (
             <FlickrImages urls={flickrUrls} myMountain={myMountain} />
+          ) : (
+            ''
           )}
         </div>
       )}
