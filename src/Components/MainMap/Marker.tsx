@@ -5,8 +5,6 @@ import smallMountainMarker from '../../Assets/small-mountain.svg';
 import bigMountainMarker from '../../Assets/big-mountain.svg';
 import fujiMarker from '../../Assets/fuji.svg';
 import { Mountain } from '../../MountainDataInterface';
-import './MainMap.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
 
 interface Props {
   theMap: null | mapboxgl.Map;

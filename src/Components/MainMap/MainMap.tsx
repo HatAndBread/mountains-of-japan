@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import { useAppContext } from '../../index';
-import Marker from './Marker';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MainMap.css';
+import { useAppContext } from '../../index';
+import Marker from './Marker';
+import mapboxgl from 'mapbox-gl';
 import { LngLatLike } from 'mapbox-gl';
 
 const MainMap = ({
