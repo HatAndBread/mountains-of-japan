@@ -31,7 +31,7 @@ const Weather = ({
           <div>
             <div>NOW</div>
             <img
-              src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+              src={`https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
               alt=''></img>
           </div>
           <div>{Math.round(currentWeather.temp)} ℃</div>
