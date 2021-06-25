@@ -18,6 +18,8 @@ button {
   border-radius: 8px;
   border-style: none;
   font-size: large;
+  user-select: none;
+  -moz-user-select: none;
 }
 
 .pointer {

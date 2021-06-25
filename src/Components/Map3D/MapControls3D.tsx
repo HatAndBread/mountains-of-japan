@@ -29,6 +29,13 @@ const MapControls3D = ({
       rotatingPitch = false;
     };
   }, []);
+  const start = (num: 1 | -1) => {
+    if (theMap) {
+      rotatingPitch = true;
+      rotatePitch(theMap, num);
+    }
+  };
+  const end = () => (rotatingPitch = false);
   return (
     <div className='MapControls3d'>
       <table>
@@ -39,14 +46,11 @@ const MapControls3D = ({
               {' '}
               <button
                 onMouseDown={() => {
-                  if (theMap) {
-                    rotatingPitch = true;
-                    rotatePitch(theMap, -1);
-                  }
+                  start(-1);
                 }}
-                onMouseUp={() => {
-                  rotatingPitch = false;
-                }}>
+                onMouseUp={end}
+                onTouchStart={() => start(1)}
+                onTouchEnd={() => end}>
                 👆
               </button>
             </td>
