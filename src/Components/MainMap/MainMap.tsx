@@ -57,7 +57,7 @@ const MainMap = ({
           hintRef.current.style.opacity = '0';
         }
       });
-      map.on('move', (a) => {
+      map.on('move', () => {
         setMapCenter(map.getCenter());
       });
       map.on('zoomend', () => {
