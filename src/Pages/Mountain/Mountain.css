@@ -34,4 +34,9 @@
   .mountain-description img {
     float: none;
   }
+  .mountain-description {
+    font-size: small;
+    padding: 8px;
+    line-height: 24px;
+  }
 }
