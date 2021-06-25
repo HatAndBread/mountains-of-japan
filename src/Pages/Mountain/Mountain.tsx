@@ -20,6 +20,7 @@ const Mountain = () => {
   const [randomImageNumber, setRandomImageNumber] = useState(
     Math.floor(Math.random() * flickrUrls.length)
   );
+  const [isTouchScreen, setIsTouchScreen] = useState(false);
   useEffect(() => {
     const callFlickr = async () => {
       try {
@@ -70,7 +71,12 @@ const Mountain = () => {
   }, [flickrUrls, setRandomImageNumber]);
 
   return (
-    <div>
+    <div
+      onTouchStart={() => {
+        if (!isTouchScreen) {
+          setIsTouchScreen(true);
+        }
+      }}>
       {!myMountain ? (
         <div>Oops! It looks like that page doesn't exist.</div>
       ) : (
@@ -119,7 +125,11 @@ const Mountain = () => {
           {forecast && currentWeather && (
             <Weather forecast={forecast} currentWeather={currentWeather} />
           )}
-          <Map3D myMountain={myMountain} fullWidth={true} />
+          <Map3D
+            myMountain={myMountain}
+            fullWidth={true}
+            isTouchScreen={isTouchScreen}
+          />
 
           {flickrUrls.length && (
             <FlickrImages urls={flickrUrls} myMountain={myMountain} />

@@ -22,9 +22,11 @@ const rotatePitch = (theMap: mapboxgl.Map, direction: 1 | -1) => {
 const Map3D = ({
   myMountain,
   fullWidth,
+  isTouchScreen,
 }: {
   myMountain: Mountain;
   fullWidth?: boolean;
+  isTouchScreen: boolean;
 }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const markerRef = useRef<HTMLDivElement>(null);
@@ -94,7 +96,9 @@ const Map3D = ({
   return (
     <div className='Map3D'>
       <div className='map-container' ref={mapContainer} id='map-3d'>
-        {theMap && <MapControls3D theMap={theMap} myMountain={myMountain} />}
+        {theMap && !isTouchScreen && (
+          <MapControls3D theMap={theMap} myMountain={myMountain} />
+        )}
       </div>
       <div className='marker' ref={markerRef}></div>
     </div>

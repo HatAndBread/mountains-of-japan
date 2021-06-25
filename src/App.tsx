@@ -22,6 +22,7 @@ function App() {
   const [appStarted, setAppStarted] = useState(false);
   const [searchResults, setSearchResults] = useState<Mount[]>([]);
   const [showAllResults, setShowAllResults] = useState(false);
+
   const ctx = useAppContext();
 
   return (
