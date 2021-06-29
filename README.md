@@ -1,6 +1,6 @@
 # The Japan Mountain Database 🏔
 
-This is the sourcecode for the website <a href="https://japan-mountain-database.app">Japan Mountain Database</a>.
+This is the sourcecode for the website <a href="https://japan-mountain-database.netlify.app">Japan Mountain Database</a>.
 
 # Technology 🤓
 
